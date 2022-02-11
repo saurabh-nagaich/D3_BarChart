@@ -4,6 +4,7 @@ const DummyData=[
     {id:'d3', region:"CHINA", value:11},
     {id:'d4', region:"GERMANY", value:16},
 ];
+let count=0;
 
 const Margin={top:20,bottom:10,right:10,left:10}
 const Chart_width = 600 - Margin.left - Margin.right;
@@ -35,22 +36,24 @@ chart.append('g')
     .attr('color',"#4f009e")
 
 chart.append('g')
-.call(d3.axisRight(y)
-    .tickSize(Chart_width - Margin.left - Margin.right)
+    .call(d3.axisRight(y)
+        .tickSize(Chart_width - Margin.left - Margin.right)
     .tickFormat(formatTick))
-.call(g => g.select(".domain")
-    .remove())
-.call(g => g.selectAll(".tick:not(:first-of-type) line")
-    .attr("stroke-opacity", 0.5)
-    .attr("stroke-dasharray", "2,2"))
-.call(g => g.selectAll(".tick text")
-    .attr("x", 0)
-    .attr("dy", -4))
-
-    function formatTick(d) {
-        const s = (d / 1e6).toFixed(1);
-        return this.parentNode.nextSibling ? `\xa0${s}` : `$${s} million`;
-      }
+    .call(g => g.select(".domain")
+        .remove())
+    .call(g => g.selectAll(".tick:not(:first-of-type) line")
+        .attr("stroke-opacity", 0.5)
+        .attr("stroke-dasharray", "2,2"))
+    .call(g => g.selectAll(".tick text")
+        .attr("x", 0)
+        .attr("dy", -4))
+        
+function formatTick(d) {
+    const s = (d);
+    console.log(s)
+    return this.parentNode.nextSibling ? `\xa0${s}` : `$${s} million`;
+    return count++;
+}
 function renderChart(){
     chart.selectAll(".bar")
         .data(selectData ,data=>data.id)
